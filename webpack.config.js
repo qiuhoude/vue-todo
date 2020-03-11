@@ -5,6 +5,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const isDev = process.env.NODE_ENV === 'development';
 
+// 作用：webpack4中：extract-text-webpack-plugin-->mini-css-extract-plugin
+const miniCssExtractPlugin = require('mini-css-extract-plugin');
+
 config = {
     target: "web",
     mode: "development",
@@ -42,21 +45,7 @@ config = {
                     }
                 ]
             },
-            {
-                test: /\.styl(us)?$/,
-                use: [
-                    'style-loader',
-                    'css-loader',
-                    {
-                        loader: 'postcss-loader',
-                        options: {
-                            sourceMap: true,
-                        }
-                    },
-                    'stylus-loader'
-                ],
 
-            },
 
         ]
     },
@@ -74,6 +63,22 @@ config = {
 
 // console.info('----> ', isDev);
 if (isDev) {
+    // 开发环境
+    config.module.rules.push({
+        test: /\.styl(us)?$/,
+        use: [
+            'style-loader',
+            'css-loader',
+            {
+                loader: 'postcss-loader', //  能够编译生成sourceMap
+                options: {
+                    sourceMap: true, // 若stylus-loader已生成source-map，则postcss-loader就不再重新生成
+                }
+            },
+            'stylus-loader'
+        ],
+
+    });
     config.devtool = "#cheap-module-eval-source-map";
 
     let openInEditor = require('launch-editor-middleware')
@@ -91,6 +96,34 @@ if (isDev) {
         //     app.use('/__open-in-editor', openInEditor())
         // },
     };
+
+    config.plugins.push(
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.NoEmitOnErrorsPlugin()
+    )
+} else {
+    config.output.filename = '[name].[chunkhash:8].js'
+    config.module.rules.push({
+        test: /\.styl(us)?$/,
+        use: [
+            miniCssExtractPlugin.loader,
+            'css-loader',
+            {
+                loader: 'postcss-loader',
+                options: {
+                    sourceMap: true,
+                }
+            },
+            'stylus-loader'
+        ]
+    });
+    // 分离 css
+    config.plugins.push(
+         new miniCssExtractPlugin({
+            filename: "[name].[chunkhash:8].css",
+            chunkFilename: "[id].css"
+        })
+    )
 }
 
 
