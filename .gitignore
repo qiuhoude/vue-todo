@@ -62,7 +62,9 @@ typings/
 
 #build files
 dist/
+public/
 package-lock.json
+
 
 #idea
 .idea/

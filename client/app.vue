@@ -8,9 +8,9 @@
 </template>
 
 <script>
-    import HeaderCom from './todo/header.vue'
-    import FooterCom from './todo/footer.jsx'
-    import TodoCom from './todo/todo.vue'
+    import HeaderCom from './layout/header.vue'
+    import FooterCom from './layout/footer.jsx'
+    import TodoCom from './views/todo/todo.vue'
 
     export default {
         components: {
