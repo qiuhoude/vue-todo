@@ -1,24 +1,25 @@
 <template>
-    <section class="real-app">
-        <input
-                type="text"
-                class="add-input"
-                autofocus="autofocus"
-                placeholder="干点啥?"
-                @keydown.enter="addTodo"
-        />
-        <Item
-                v-for="todo in filterTodos"
-                :key="todo.id"
-                :todo="todo"
-                @del="deleteTodo"
-        />
-        <Tabs :filter="filter"
-              :todos="todos"
-              @clearAllCompleted="clearAllCompleted"
-              @toggle="toggleFilter"
-        />
-    </section>
+  <section class="real-app">
+    <input
+      type="text"
+      class="add-input"
+      autofocus="autofocus"
+      placeholder="干点啥?"
+      @keydown.enter="addTodo"
+    >
+    <Item
+      v-for="todo in filterTodos"
+      :key="todo.id"
+      :todo="todo"
+      @del="deleteTodo"
+    />
+    <Tabs
+      :filter="filter"
+      :todos="todos"
+      @clearAllCompleted="clearAllCompleted"
+      @toggle="toggleFilter"
+    />
+  </section>
 </template>
 
 <script>
@@ -28,10 +29,23 @@
     let id = 0;
 
     export default {
+        components: {
+            Item,
+            Tabs
+        },
         data() {
             return {
                 todos: [],
                 filter: 'all'
+            }
+        },
+        computed: {
+            filterTodos() {
+                if (this.filter === 'all') {
+                    return this.todos;
+                }
+                const completed = this.filter === 'completed';
+                return this.todos.filter(todo => completed === todo.completed)
             }
         },
         methods: {
@@ -53,19 +67,6 @@
             },
             toggleFilter(state) {
                 this.filter = state;
-            }
-        },
-        components: {
-            Item,
-            Tabs
-        },
-        computed: {
-            filterTodos() {
-                if (this.filter === 'all') {
-                    return this.todos;
-                }
-                const completed = this.filter === 'completed';
-                return this.todos.filter(todo => completed === todo.completed)
             }
         }
 

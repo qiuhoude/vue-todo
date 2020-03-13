@@ -1,10 +1,22 @@
 {
-  "extends": "standard",
+  //    "extends": "standard",
+  "extends": [
+    "plugin:vue/recommended"
+  ],
   "plugins": [
-    "html" // 检查html中js代码
-  ]
-//  "parser": "babel-eslint",
-//  "rules": {
-//    "no-new": "off"
-//  }
+    "vue",
+    "html"
+    // 检查html中js代码
+  ],
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": "babel-eslint",
+    "sourceType": "module"
+  },
+  "rules": {
+    // override/add rules settings here, such as:
+    // 'vue/no-unused-vars': 'error',
+
+    "no-new": "off"
+  }
 }

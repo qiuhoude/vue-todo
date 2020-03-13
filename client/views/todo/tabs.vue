@@ -1,25 +1,23 @@
 <template>
-    <div class="helper">
-        <span class="left">{{unfinishedTodoLength}} item left</span>
-        <span class="tabs">
-            <span
-                    v-for="state in states"
-                    :key="state"
-                    :class="['state',filter === state ? 'actived':'']"
-                    @click="toggleFilter(state)"
-            >{{state}}</span>
-        </span>
-        <span class="clear" @click="clearAllCompleted">clear Completed</span>
-    </div>
+  <div class="helper">
+    <span class="left">{{ unfinishedTodoLength }} item left</span>
+    <span class="tabs">
+      <span
+        v-for="state in states"
+        :key="state"
+        :class="['state',filter === state ? 'actived':'']"
+        @click="toggleFilter(state)"
+      >{{ state }}</span>
+    </span>
+    <span
+      class="clear"
+      @click="clearAllCompleted"
+    >clear Completed</span>
+  </div>
 </template>
 
 <script>
     export default {
-        data() {
-            return {
-                states: ['all', 'active', 'completed']
-            }
-        },
         props: {
             filter: {
                 type: String,
@@ -30,6 +28,16 @@
                 required: true,
             }
         },
+        data() {
+            return {
+                states: ['all', 'active', 'completed']
+            }
+        },
+        computed: {
+            unfinishedTodoLength() {
+                return this.todos.filter(t => !t.completed).length;
+            }
+        },
         methods: {
             toggleFilter(state) {
                 this.$emit('toggle', state);
@@ -37,11 +45,6 @@
 
             clearAllCompleted() {
                 this.$emit('clearAllCompleted');
-            }
-        },
-        computed: {
-            unfinishedTodoLength() {
-                return this.todos.filter(t => !t.completed).length;
             }
         }
     }

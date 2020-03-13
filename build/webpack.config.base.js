@@ -14,6 +14,12 @@ const baseConfig = {
     module: {
         rules: [
             {
+                test: /\.(vue|js|jsx)$/,
+                loader: 'eslint-loader',
+                exclude: /node_modules/,
+                enforce: 'pre' // 在加载之前进行预处理
+            },
+            {
                 test: /\.vue$/,
                 loader: 'vue-loader',
                 options: createVueLoaderOptions(isDev)
@@ -52,4 +58,4 @@ const baseConfig = {
     }
 };
 
-module.exports = {baseConfig , outputPath, isDev};
+module.exports = {baseConfig, outputPath, isDev};
