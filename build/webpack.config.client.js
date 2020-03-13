@@ -46,7 +46,7 @@ if (isDev) {
                 {
                     test: /\.styl(us)?$/,
                     use: [
-                        'style-loader',
+                        'vue-style-loader',
                         'css-loader',
                         {
                             loader: 'postcss-loader', //  能够编译生成sourceMap

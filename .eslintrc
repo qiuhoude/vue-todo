@@ -1,0 +1,10 @@
+{
+  "extends": "standard",
+  "plugins": [
+    "html" // 检查html中js代码
+  ]
+//  "parser": "babel-eslint",
+//  "rules": {
+//    "no-new": "off"
+//  }
+}

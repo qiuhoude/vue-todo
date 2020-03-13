@@ -5,7 +5,7 @@
 </template>
 
 
-<style lang="stylus" scoped>
+<style lang="stylus"  module>
     .main-header
         text-align center
 
@@ -17,3 +17,8 @@
         -webkit-text-fill-color transparent
         margin 20px
 </style>
+
+<docs>
+    # 这是一个说明文档
+    #qwert = 123
+</docs>

@@ -12,6 +12,7 @@
     import FooterCom from './layout/footer.jsx'
     import TodoCom from './views/todo/todo.vue'
 
+    console.log("-----> : ",HeaderCom.__docs);
     export default {
         components: {
             HeaderCom,
