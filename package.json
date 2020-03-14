@@ -9,6 +9,7 @@
     "clean": "rimraf public",
     "build": "npm run clean && npm run build:client",
     "precommit": "npm run lint-fix",
+    "practice": "cross-env NODE_ENV=development webpack-dev-server --config build/webpack.config.practice.js",
     "lint": "eslint --ext .js,.jsx,.vue client/",
     "lint-fix": "eslint --fix --ext .js --ext .jsx --ext .vue client/"
   },
