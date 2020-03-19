@@ -11,6 +11,7 @@ const baseConfig = {
   output: {
     filename: "bundle.js",
     path: outputPath,
+    publicPath:'/public/',
   },
   module: {
     rules: [

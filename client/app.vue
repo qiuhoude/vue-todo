@@ -1,9 +1,12 @@
 <template>
   <div id="app">
-    <div id="cover"/>
+    <div id="cover"></div>
     <HeaderCom/>
     <TodoCom/>
     <FooterCom/>
+    <router-link to="/app">app</router-link>
+    <router-link to="/login">login</router-link>
+    <router-view></router-view>
   </div>
 </template>
 

@@ -23,6 +23,9 @@ const devServer = {
   //     let openInEditor = require('launch-editor-middleware');
   //     app.use('/__open-in-editor', openInEditor())
   // },
+  historyApiFallback:{
+    index:'/public/index.html'
+  },
 };
 
 const defaultPlugins = [
@@ -32,7 +35,9 @@ const defaultPlugins = [
     }
   }),
   new VueLoaderPlugin(),
-  new HtmlWebpackPlugin()
+  new HtmlWebpackPlugin({
+    template: path.join(__dirname, './template.html')
+  })
 ];
 
 let config;
