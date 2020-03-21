@@ -10,7 +10,7 @@ export default {
     // createElement
     return (
       <div id="footer">
-        <span>Write by @{this.author}</span>
+        <span>Written by @{this.author}</span>
       </div>
     )
   }

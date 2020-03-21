@@ -1,12 +1,14 @@
 <template>
   <div id="app">
     <div id="cover"></div>
-    <HeaderCom/>
-    <TodoCom/>
-    <FooterCom/>
-    <router-link to="/app">app</router-link>
-    <router-link to="/login">login</router-link>
-    <router-view></router-view>
+    <HeaderCom></HeaderCom>
+    <TodoCom></TodoCom>
+
+    <transition name="fade" mode="out-in">
+      <router-view/>
+    </transition>
+
+    <FooterCom></FooterCom>
   </div>
 </template>
 
@@ -14,12 +16,19 @@
   import HeaderCom from './layout/header.vue'
   import FooterCom from './layout/footer.jsx'
   import TodoCom from './views/todo/todo.vue'
+  import {mapState} from 'vuex'
 
   export default {
     components: {
       HeaderCom,
       FooterCom,
       TodoCom
+    },
+    computed: {
+      ...mapState({}),
+      fullName() {
+        return this.$store.getters.fullName
+      }
     }
   }
 </script>

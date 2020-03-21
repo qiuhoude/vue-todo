@@ -1,4 +1,3 @@
-
 export default [
   {
     path: '/',
@@ -6,10 +5,26 @@ export default [
   },
   {
     path: '/app',
-    component: ()=>import('../views/todo/todo.vue')
+    name: 'app', //路由命名
+    component: () => import('../views/todo/todo.vue'),
+    meta: {
+      title: 'this is app',
+      description: '测试desc~~',
+    },
+    beforeEnter: (to, from, next) => {
+      console.log('app route before ent')
+      next() // 需要调用next传到下一个钩子
+    }
+
+    // children: [
+    //   {
+    //     path: 'test',
+    //     component: Login
+    //   }
+    // ]
   },
   {
     path: '/login',
-    component: ()=>import('../views/login/login.vue')
+    component: () => import('../views/login/login.vue')
   }
 ]
