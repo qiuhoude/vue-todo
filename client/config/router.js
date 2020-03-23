@@ -8,8 +8,8 @@ export default () => {
     // base: '/base/',
     routes,
 
-    linkActiveClass: 'active-link', // router-link 标签激活后的class样式名称 /login
-    linkExactActiveClass: 'exact-active-link',// router-link 标签激活后的class全路径 /login/exact
+    linkActiveClass: 'active-link', // routers-link 标签激活后的class样式名称 /login
+    linkExactActiveClass: 'exact-active-link',// routers-link 标签激活后的class全路径 /login/exact
 
     // 滚动行为
     scrollBehavior(to, from, savedPosition) {

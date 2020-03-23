@@ -9,6 +9,8 @@ const {baseConfig, outputPath, isDev} = require('./webpack.config.base'); // 依
 // 作用：webpack4中：extract-text-webpack-plugin-->mini-css-extract-plugin
 const miniCssExtractPlugin = require('mini-css-extract-plugin');
 
+// 服务端渲染使用
+const VueClientPlugin = require('vue-server-renderer/client-plugin')
 
 const devServer = {
   port: 9200,
@@ -23,8 +25,8 @@ const devServer = {
   //     let openInEditor = require('launch-editor-middleware');
   //     app.use('/__open-in-editor', openInEditor())
   // },
-  historyApiFallback:{
-    index:'/public/index.html'
+  historyApiFallback: {
+    index: '/public/index.html'
   },
 };
 
@@ -37,7 +39,8 @@ const defaultPlugins = [
   new VueLoaderPlugin(),
   new HtmlWebpackPlugin({
     template: path.join(__dirname, './template.html')
-  })
+  }),
+  new VueClientPlugin(),
 ];
 
 let config;
@@ -48,6 +51,12 @@ if (isDev) {
     devtool: "#cheap-module-eval-source-map",
     module: {
       rules: [
+        {
+          test: /\.css$/,
+          // style-loader：使用<style></style>将css-loader内部样式注入到我们的HTML页面
+          // css-loader：读取css文件内容
+          use: ['style-loader', 'css-loader'],
+        },
         {
           test: /\.styl(us)?$/,
           use: [

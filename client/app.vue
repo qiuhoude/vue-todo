@@ -1,14 +1,17 @@
 <template>
   <div id="app">
-    <div id="cover"></div>
-    <HeaderCom></HeaderCom>
-    <TodoCom></TodoCom>
+    <div id="cover" />
+    <HeaderCom />
+    <TodoCom />
 
-    <transition name="fade" mode="out-in">
-      <router-view/>
-    </transition>
+    <!--  <transition
+        name="fade"
+        mode="out-in"
+      >
+        <routers-view />
+      </transition>-->
 
-    <FooterCom></FooterCom>
+    <FooterCom />
   </div>
 </template>
 
@@ -19,16 +22,19 @@
   import {mapState} from 'vuex'
 
   export default {
+    metaInfo: {
+      title: 'Todo App'
+    },
     components: {
       HeaderCom,
       FooterCom,
       TodoCom
     },
     computed: {
-      ...mapState({}),
-      fullName() {
-        return this.$store.getters.fullName
-      }
+      // ...mapState({}),
+      // fullName() {
+      //   return this.$store.getters.fullName
+      // }
     }
   }
 </script>

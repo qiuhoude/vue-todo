@@ -1,17 +1,17 @@
 const path = require("path");
 const createVueLoaderOptions = require('./vue-loader.config');
 
-const outputPath = path.join(__dirname, '../public');
+const outputPath = path.join(__dirname, '../public/client');
 const isDev = process.env.NODE_ENV === 'development';
 
 const baseConfig = {
-  mode: process.env.NODE_ENV || 'production',
   target: "web",
-  entry: path.join(__dirname, "../client/index.js"),
+  mode: process.env.NODE_ENV || 'production',
+  entry: path.join(__dirname, "../client/client-entry.js"),
   output: {
     filename: "bundle.js",
     path: outputPath,
-    publicPath:'/public/',
+    publicPath:'http://127.0.0.1:9200/public/',
   },
   module: {
     rules: [
@@ -34,12 +34,6 @@ const baseConfig = {
         test: /\.js$/,
         loader: 'babel-loader',
         exclude: /node_modules/
-      },
-      {
-        // css-loader：读取css文件内容
-        // style-loader：使用<style></style>将css-loader内部样式注入到我们的HTML页面
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
       },
       {
         // 将图片转化成base64 代码，直接写在js内容里面，而不用生成新的文件，对于小图片有用，可减少http请求
