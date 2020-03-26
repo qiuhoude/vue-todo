@@ -4,12 +4,12 @@ const VueLoaderPlugin = require('vue-loader/lib/plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const merge = require('webpack-merge'); // 合并配置
-const {baseConfig, outputPath, isDev} = require('./webpack.config.base'); // 依赖base
+const {baseConfig, isDev} = require('./webpack.config.base'); // 依赖base
 
 // 作用：webpack4中：extract-text-webpack-plugin-->mini-css-extract-plugin
 const miniCssExtractPlugin = require('mini-css-extract-plugin');
 
-// 服务端渲染使用
+// 服务端渲染使用 的 client-plugin
 const VueClientPlugin = require('vue-server-renderer/client-plugin')
 
 const devServer = {
@@ -40,7 +40,7 @@ const defaultPlugins = [
   new HtmlWebpackPlugin({
     template: path.join(__dirname, './template.html')
   }),
-  new VueClientPlugin(),
+  new VueClientPlugin(), // 默认输出文件 vue-ssr-client-manifest.json 可以在源码client-plugin.js中查看
 ];
 
 let config;
@@ -48,6 +48,9 @@ let config;
 if (isDev) {
   // 合并配置
   config = merge(baseConfig, {
+    output: {
+      publicPath: `http://127.0.0.1:${devServer.port}/public/`, // 对外访问的路径
+    },
     devtool: "#cheap-module-eval-source-map",
     module: {
       rules: [
@@ -84,6 +87,7 @@ if (isDev) {
   config = merge(baseConfig, {
     output: {
       filename: '[name].[chunkhash:8].js',
+      publicPath: '/public/'
     },
     module: {
       rules: [
@@ -118,5 +122,9 @@ if (isDev) {
     ])
   });
 }
+config = merge(config, {
+
+})
+
 module.exports = config;
 

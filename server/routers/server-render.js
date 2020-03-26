@@ -16,7 +16,7 @@ module.exports = async (ctx, renderer, template) => {
     // }
 
     const {title} = context.meta.inject()
-
+    console.log(title)
     const html = ejs.render(template, {
       appString,
       style: context.renderStyles(),

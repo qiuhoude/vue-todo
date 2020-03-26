@@ -62,7 +62,8 @@ typings/
 
 #build files
 dist/
-public/
+public*/
+#public-server/
 package-lock.json
 
 

@@ -16,15 +16,13 @@ const plugins = [
     'process.env.VUE_ENV': '"server"'
   }),
   new VueLoaderPlugin(),
+  new VueSeverPlugin()  // 此插件在输出目录中 vue-ssr-server-bundle.json
 ];
 
 
 let config;
 
 if (isDev) {
-  // 此插件在输出目录中
-  // 生成 `vue-ssr-client-manifest.json`。
-  plugins.push(new VueSeverPlugin())
 }
 config = merge(baseConfig, {
   target: 'node', // 后端服务,默认是web
@@ -35,7 +33,7 @@ config = merge(baseConfig, {
   output: {
     libraryTarget: 'commonjs2',
     filename: 'server-entry.js',
-    path: path.join(__dirname, '../public/server/')
+    path: path.join(__dirname, '../public-server/')
   },
   //不要遵循/打包这些模块，而是在运行时从环境中请求他们
   externals: Object.keys(require('../package.json').dependencies),

@@ -15,7 +15,7 @@ let bundle
 const serverConfig = require('../../build/webpack.config.server')
 const serverCompiler = webpack(serverConfig)
 const mfs = new MemoryFS()
-serverCompiler.outputFileSystem = mfs
+serverCompiler.outputFileSystem = mfs // 将编译文件输出到内存中
 serverCompiler.watch({}, (err, stats) => {
   if (err) {
     throw err
@@ -25,8 +25,7 @@ serverCompiler.watch({}, (err, stats) => {
   info.warnings.forEach(warn => console.warn(warn))
 
   const bundlePath = path.join(serverConfig.output.path, 'vue-ssr-server-bundle.json')
-  // 从虚拟内存读取中
-  bundle = JSON.parse(mfs.readFileSync(bundlePath, 'utf-8'))
+  bundle = JSON.parse(mfs.readFileSync(bundlePath, 'utf-8'))  // 从虚拟内存读取中 vue-ssr-server-bundle.json
   console.log('new bundle generated...~~~~~')
 })
 
@@ -34,8 +33,8 @@ serverCompiler.watch({}, (err, stats) => {
 // 创建路由
 const router = new Router()
 router.get('*', async (ctx) => {
-  if (!bundle) { //builde加载成功
-    ctx.body = '你等一会，别着急......'
+  if (!bundle) {
+    ctx.body = 'bundle文件正在构建中......'
     return
   }
 
@@ -52,8 +51,8 @@ router.get('*', async (ctx) => {
     inject: false,
     clientManifest // （可选）客户端构建 manifest
   })
-  // 进行渲染
 
+  // 进行渲染
   await serverRender(ctx, renderer, template)
 
 })

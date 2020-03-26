@@ -1,7 +1,7 @@
 const path = require("path");
 const createVueLoaderOptions = require('./vue-loader.config');
 
-const outputPath = path.join(__dirname, '../public/client');
+const clientOutputPath = path.join(__dirname, '../public');
 const isDev = process.env.NODE_ENV === 'development';
 
 const baseConfig = {
@@ -10,8 +10,7 @@ const baseConfig = {
   entry: path.join(__dirname, "../client/client-entry.js"),
   output: {
     filename: "bundle.js",
-    path: outputPath,
-    publicPath:'http://127.0.0.1:9200/public/',
+    path: clientOutputPath,
   },
   module: {
     rules: [
@@ -54,4 +53,4 @@ const baseConfig = {
   }
 };
 
-module.exports = {baseConfig, outputPath, isDev};
+module.exports = {baseConfig, isDev};

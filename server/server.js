@@ -2,7 +2,6 @@ const Koa = require('koa')
 const send = require('koa-send')
 const path = require('path')
 
-
 const app = new Koa()
 
 const isDev = process.env.NODE_ENV === 'development'
@@ -23,23 +22,29 @@ app.use(async (ctx, next) => {
   }
 })
 
-let pageRouter
-if (isDev) {
-  pageRouter = require('./routers/dev-ssr')
-} else {
-  pageRouter = require('./routers/ssr-no-bundle')
-}
-//icon
+
+//icon 文件处理
 app.use(async (ctx, next) => {
   if (ctx.path === '/favicon.ico') {
-    await send(ctx, '/favicon.ico', { root: path.join(__dirname, '../') })
+    await send(ctx, '/favicon.ico', {root: path.join(__dirname, '../')})
   } else {
     await next()
   }
 })
-// 加载路由
-app.use(pageRouter.routes())
-  .use(pageRouter.allowedMethods())
+
+
+// 静态文件处理
+const staticRouter = require('./routers/static')
+app.use(staticRouter.routes()).use(staticRouter.allowedMethods())
+
+// 页面路由
+let pageRouter
+if (isDev) {
+  pageRouter = require('./routers/dev-ssr')
+} else {
+  pageRouter = require('./routers/ssr')
+}
+app.use(pageRouter.routes()).use(pageRouter.allowedMethods())
 
 // 启动服务
 const HOST = process.env.HOST || '0.0.0.0'
