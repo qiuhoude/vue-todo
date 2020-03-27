@@ -28,6 +28,8 @@ const devServer = {
   historyApiFallback: {
     index: '/public/index.html'
   },
+  headers:{'Access-Control-Allow-Origin': '*'}, // 提供跨域头解决跨域问题
+
 };
 
 const defaultPlugins = [

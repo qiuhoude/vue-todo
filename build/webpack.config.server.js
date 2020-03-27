@@ -42,7 +42,10 @@ config = merge(baseConfig, {
       {
         test: /\.styl(us)?$/,
         use: [
-          miniCssExtractPlugin.loader,
+          /* miniCssExtractPlugin.loader,
+           不要使用这个loader ,会出现bug
+           https://github.com/vuejs/vue-router/issues/2660
+           */
           'css-loader',
           {
             loader: 'postcss-loader',

@@ -1,24 +1,24 @@
 <template>
   <div id="app">
-    <div id="cover" />
-    <HeaderCom />
-    <TodoCom />
+    <div id="cover"/>
+    <HeaderCom/>
 
-    <!--  <transition
-        name="fade"
-        mode="out-in"
-      >
-        <routers-view />
-      </transition>-->
-
-    <FooterCom />
+    <transition
+      name="fade"
+      mode="out-in"
+    >
+      <router-view/>
+    </transition>
+    <button @click="notifyClick">
+      notify me
+    </button>
+    <FooterCom/>
   </div>
 </template>
 
 <script>
   import HeaderCom from './layout/header.vue'
   import FooterCom from './layout/footer.jsx'
-  import TodoCom from './views/todo/todo.vue'
   import {mapState} from 'vuex'
 
   export default {
@@ -28,13 +28,23 @@
     components: {
       HeaderCom,
       FooterCom,
-      TodoCom
+      // TodoCom
     },
     computed: {
       // ...mapState({}),
       // fullName() {
       //   return this.$store.getters.fullName
       // }
+    },
+    methods: {
+      notifyClick() {
+        const n = this.$notify({
+          content: 'test notify',
+          btn: 'close',
+          autoClose: 3000
+        })
+        n.content = n.id
+      }
     }
   }
 </script>

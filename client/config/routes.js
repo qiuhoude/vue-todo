@@ -12,7 +12,7 @@ export default [
       description: '测试desc~~',
     },
     beforeEnter: (to, from, next) => {
-      console.log('app route before ent')
+      console.log('app route before enter')
       next() // 需要调用next传到下一个钩子
     }
 
