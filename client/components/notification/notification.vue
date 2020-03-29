@@ -2,7 +2,8 @@
   <transition
     name="fade"
     @after-leave="afterLeave"
-    @after-enter="afterEnter">
+    @after-enter="afterEnter"
+  >
     <div
       v-show="visible"
       class="notification"

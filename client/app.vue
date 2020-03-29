@@ -1,18 +1,18 @@
 <template>
   <div id="app">
-    <div id="cover"/>
-    <HeaderCom/>
+    <div id="cover" />
+    <HeaderCom />
 
     <transition
       name="fade"
       mode="out-in"
     >
-      <router-view/>
+      <router-view />
     </transition>
     <button @click="notifyClick">
       notify me
     </button>
-    <FooterCom/>
+    <FooterCom />
   </div>
 </template>
 
