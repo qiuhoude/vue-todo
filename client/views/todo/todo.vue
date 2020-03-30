@@ -1,18 +1,15 @@
 <template>
   <section class="real-app">
     <div class="tab-container">
-      <tabs :value="tabValue">
-        <tab
-          label="tab1"
-          index="1"
-        />
-        <tab
-          label="tab2"
-          index="2"
-        />
-        <tab
-          label="tab3"
-          index="3"
+      <tabs
+        :value="filter"
+        @change="handleChangeTab"
+      >
+        <Tab
+          v-for="tab in states"
+          :key="tab"
+          :label="tab"
+          :index="tab"
         />
       </tabs>
     </div>
@@ -53,7 +50,8 @@
       return {
         todos: [],
         filter: 'all',
-        tabValue: 1
+        tabValue: 'all',
+        states: ['all', 'active', 'completed']
       }
     },
     computed: {
@@ -65,10 +63,11 @@
         return this.todos.filter(todo => completed === todo.completed)
       }
     },
+
     mounted() {
-      setTimeout(() => {
-        this.tabValue = 2
-      }, 1000)
+      // setTimeout(() => {
+      //   this.tabValue = 2
+      // }, 1000)
     },
     methods: {
       addTodo(e) {
@@ -89,6 +88,9 @@
       },
       toggleFilter(state) {
         this.filter = state;
+      },
+      handleChangeTab(index) {
+        this.filter = index
       }
     }
 

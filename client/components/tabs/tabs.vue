@@ -1,6 +1,20 @@
+<template>
+  <div class="tabs">
+    <ul class="tabs-header">
+      <slot name="default" />
+    </ul>
+    <tab-container :panes="panes" />
+  </div>
+</template>
+
 <script>
+  import TabContainer from './tab-container.vue'
+
   export default {
     name: "Tabs",
+    components: {
+      TabContainer,
+    },
     props: {
       value: {
         type: [String, Number],
@@ -8,29 +22,41 @@
         default: 1
       }
     },
-    provide() {
-      const bindData = {}
+    data() {
+      return {
+        panes: [] // tab
+      }
+    },
+   /* provide() {
       let that = this
-      // 将value传递到 bindData的value上
-      Reflect.defineProperty(bindData, 'tabsValue', {
-        get() {
-          return that.value
-        },
-        enumerable: true
-      })
+      /!*  const bindData = {}
+        // 将value传递到 bindData的value上
+        Reflect.defineProperty(bindData, 'tabsValue', {
+          get() {
+            return that.value
+          },
+          enumerable: true
+        })*!/
+      const bindData = new Proxy(that, {})
       return {
         bindData
       }
+    },*/
+    methods: {
+      onChange(index) {
+        this.$emit('change', index)
+      }
     },
-    render() {
+   /* render() {
       return (
         <div class='tabs'>
           <ul class='tabs-header'>
             {this.$slots.default}
           </ul>
+          <tab-container panes={this.panes}/>
         </div>
       )
-    },
+    }*/
   }
 </script>
 

@@ -36,11 +36,11 @@ const app = new Vue({
   destroyed() {
     console.log(this, 'destroyed')
   },
-  // render(h) {
-  //   throw new TypeError('render error')
-  //   // console.log('render function invoked')
-  //   // return h('div', {}, this.text)
-  // },
+  render(h) {
+    // throw new TypeError('render error')
+    console.log('render function invoked')
+    return h('div', {}, this.text)
+  },
   // renderError(h, err) {
   //   return h('div', {}, err.stack)
   // },
